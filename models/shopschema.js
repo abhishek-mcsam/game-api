@@ -1,20 +1,38 @@
-const mongoose = requiere("mongoose");
+const mongoose = require("mongoose");
 
 const shopschema = new mongoose.Schema({
     name:{
         type: String,
-        require: [true , 'Name is reuired']
-       
+        required: [true , 'Name is reuired']
+      
     },
-    prizelist: [
-        {
-         prize:   mongoose.Schema.ObjectId
-        }
-      ],
    campday:{
        type: Number
    },
    
+},
+ 
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+}
+);
+
+shopschema.virtual("prize", {
+    ref:"prize",
+    foreignField:"shop",
+    localField:"_id",
+    
+
+})
+
+shopschema.pre(/^find/ , function(next){
+    console.log("Inside the Pre Hook")
+    this.populate({
+        path:"prize",
+        select:"-__v"
+    })
+    next();
 })
 
 module.exports = mongoose.model('shop' , shopschema)

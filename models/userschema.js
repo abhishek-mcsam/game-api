@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+    identifyid:{
+        type:String,
+    },
     first_name:{
         type:String,
         
@@ -20,13 +23,20 @@ const userSchema = new mongoose.Schema({
     zipcode:{
         type:String
     },
-    prizeid: mongoose.Schema.ObjectId,
+    shop:{
+        type:mongoose.Schema.ObjectId,
+        ref:"shop"
+    },
+   isWinner:{
+       type: Boolean,
+       default: false
 
-    animaldetails:{
-        isCat: Boolean,
-        idDog: Boolean,
-        weight:Number,
-            }
-})
+   }
+   } , 
+  {
+    timestamps: { createdAt: "create_at", updatedAt: "updated_at" },
+  }
+  )
+  
 
-module.exports = mongoose.model('user' , userSchema)
+module.exports = mongoose.model('User' , userSchema)

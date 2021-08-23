@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 module.exports = ()=>{
     mongoose.connect(process.env.db,{
          useUnifiedTopology: true ,
-         useNewUrlParser: true
+         useNewUrlParser: true,
+         useFindAndModify: true,
     }).then(()=>{
         console.log("Db Connected")
     }).catch((err)=>{

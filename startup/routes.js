@@ -13,6 +13,9 @@ module.exports =(app)=>{
     app.use("/app/user" , user)
     app.use("/app/prize" ,Prize)
     app.use("/app/shop" , Shop)
+   
+
+
 
 
 }
