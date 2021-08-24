@@ -11,8 +11,11 @@ exports.CreateShop = async(req, res)=>{
         })
 
     }catch(er){
-        res.send(er)
-
+        logger.log("error", `shopController.js | createshop | ${err}`);
+        res.status(400).json({
+            status:"error",
+            message: err.message
+        })
     }
 
 }
@@ -27,7 +30,11 @@ exports.GetAllshop = async (req, res)=>{
            })
 
     }catch(err){
-        res.send(err)
+        logger.log("error", `shopController.js | getallshop | ${err}`);
+        res.status(400).json({
+            status:"error",
+            message: err.message
+        })
 
     }
 }
@@ -49,6 +56,10 @@ exports.DeletesShop =async  (req , res)=>{
         })
     }catch(er){
 
-        res.send(er)
+        logger.log("error", `shopController.js | delete shop | ${err}`);
+        res.status(400).json({
+            status:"error",
+            message: err.message
+        })
     }
 }

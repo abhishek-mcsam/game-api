@@ -5,7 +5,7 @@ const logger = require("../utils/logger")
 
 
  
-exports.CreateUser = async (req, res , next)=>{
+exports.CreateUser = async (req, res)=>{
     try{
         
        const identifyid = req.body.identifyid
@@ -17,6 +17,7 @@ exports.CreateUser = async (req, res , next)=>{
        const exitsUser = await User.findOne({ identifyid : identifyid});
         
         if(exitsUser){
+            
              return next(new AppError("Not Applicable to play the Game" , 400))
         }
        const user = await User.create(req.body)
@@ -31,8 +32,9 @@ exports.CreateUser = async (req, res , next)=>{
         
 
     }catch(err){
-        
-          
+      
+        logger.log("error", `auth.js | create user | ${err}`);
+
          return res.status(400).json({
              status: "error",
             error: err
@@ -40,12 +42,15 @@ exports.CreateUser = async (req, res , next)=>{
     }
 }
 
-exports.UpdateUser = (req, res)=>{
+exports.UpdateUser = async (req, res)=>{
     try{
-    const user = User.findByIdAndUpdate(req.params.id , req.body ,{
+        console.log("rrrrrr" , req.params.id)
+    const user = await User.findByIdAndUpdate(req.params.id , req.body ,{
         new:true,
+        runValidators: true
         
     })
+    
     if(!user){
         res.status(400).json({
             status:'fail',
@@ -57,8 +62,14 @@ exports.UpdateUser = (req, res)=>{
         data: user
     })
 
-    }catch(er){
-        res.send(er)
+    }catch(err){
+        
+        logger.log("error", `usercontroller.js | updateuser | ${err}`);
+
+        return res.status(400).json({
+            status: "error",
+            message: err.message
+        });
 
     }
 
@@ -77,8 +88,13 @@ exports.DeletUser = (req, res)=>{
         message:"user deleted"
     })
 
-    }catch(er){
-        res.send(er)
+    }catch(err){
+        logger.log("error", `usercontroller.js | updateuser | ${err}`);
+
+        return res.status(400).json({
+            status: "error",
+            message: err.message
+        });
 
     }
 
@@ -87,25 +103,49 @@ exports.DeletUser = (req, res)=>{
 exports.GetAlluser = async(req , res)=>{
     try{
         
-        const user = await User.find();
-        console.log("usssser is " , user)
+        const user = await User.find() 
+        
         res.status(200).json({
             status:"success",
             data: user
         })
-
+       
     }catch(err){
-        console.log("errrrri s" , err)
-        logger.log("error", `auth.js | sso user | ${err}`);
+         
+
+        logger.log("error", `usercontroller.js | getalluser | ${err}`);
 
         return res.status(400).json({
             status: "error",
-           error: JSON.stringify(err)
+            message: err.message
         });
 
     }
 }
 
+exports.GetUser = async(req , res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        
+          if(!user){
+              return next(new AppError("User Can't Exits" , 400))
+          }
+          res.status(200).json({
+              status:"success" , 
+              data: user
+          })
+
+    }catch(err){
+        logger.log("error", `usercontroller.js | getUser | ${err}`);
+
+        return res.status(400).json({
+            status: "error",
+            message: err.message
+        });
+
+    }
+
+}
 exports.RewardsController = async (req , res)=>{
     try{
         const {shop  , iswin , userid } = req.body;
@@ -140,11 +180,11 @@ exports.RewardsController = async (req , res)=>{
         }
 
     }catch(err){
-        res.status(400).json({
-            status:"fail",
-            error: err
-        })
-
+        logger.log("error", `usercontroller.js | rewards | ${err}`)
+        return res.status(400).json({
+            status: "error",
+            message: err.message
+        });
     }
    
 }

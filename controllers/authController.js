@@ -1,6 +1,7 @@
 const AppError = require("../utils/appError");
 const {verifyToken , Createtoken} = require("../utils/token");
-const User = require("../models/userschema")
+const User = require("../models/userschema");
+const logger = require("../utils/logger");
 
 exports.Protect = async(req , res , next)=>{
 
@@ -29,13 +30,16 @@ exports.Protect = async(req , res , next)=>{
    }
     req.user = currentuser;
 
-    console.log("RRRRRRR", req.user)
+     
     next();
-    }catch(err){
-        console.log("ERrrrrrrr" , err)
+ 
+ }catch(err){
+
+        logger.log("error", `auth.js |  protect | ${err}`);
+        
         res.status(404).json({
             status:"error", 
-            message: err
+            message: err.message
         })
     }
 

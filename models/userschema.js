@@ -25,18 +25,46 @@ const userSchema = new mongoose.Schema({
     },
     shop:{
         type:mongoose.Schema.ObjectId,
-        ref:"shop"
+        ref:'shop'
     },
    isWinner:{
        type: Boolean,
        default: false
+   },
+   animaldetail:{
+       iscat:{
+           type:Boolean,
+           deafult: false
+           
+       },
+       isdog:{
+           type:Boolean,
+           deafult: false
+       },
+       iskitten_ispuppy: {
+           type:Boolean,
+           deafult: false
+       },
+       isweight:{
+           type: String,
+           enum:['ten' , 'ten_fifteen', 'twentyfive'],
+        //    required:[true , 'must have weight']
+       }
 
    }
    } , 
+
   {
-    timestamps: { createdAt: "create_at", updatedAt: "updated_at" },
+    timestamps:true
   }
+
   )
   
-
-module.exports = mongoose.model('User' , userSchema)
+userSchema.pre(/^find/ , function(next){
+    this.populate({
+        path:'shop',
+        select:"-__v"
+    })
+    next();
+})
+module.exports = mongoose.model('user' , userSchema)

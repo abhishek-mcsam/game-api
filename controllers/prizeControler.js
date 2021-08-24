@@ -1,16 +1,22 @@
 const Prize = require("../models/prizeschema");
+const logger = require("../utils/logger")
+
 
 exports.CreatePrize =  async(req , res , next )=>{
     try{
         const prize = await Prize.create(req.body)
+      
         res.status(200).json({
             status:"success",
             data: prize
         })
 
-    }catch(er){
-        res.send(er)
-
+    }catch(err){
+        logger.log("error", `prizeController.js | create prize | ${err}`);
+        res.status(404).json({
+            status:"error", 
+            message: err.message
+        })
     }
 
 }
@@ -24,11 +30,12 @@ exports.GetAllPrize = async (req,res , next )=>{
             data: prize
         })
 
-    }catch(er){
+    }catch(err){
 
+        logger.log("error", `prizeController.js |  Get All Prize | ${err}`);
         res.status(404).json({
-            status:'fail',
-            message:"Not Found All Prize"
+            status:"error", 
+            message: err.message
         })
 
     }
@@ -51,10 +58,11 @@ exports.GetPrize = async(req, res , next)=>{
             data: prize
         })
 
-    }catch(er){
+    }catch(err){
+        logger.log("error", `prizeController.js | get Prize | ${err}`);
         res.status(404).json({
-            status:'fail',
-            message:"Error To Find Error"
+            status:"error", 
+            message: err.message
         })
 
     }
@@ -76,7 +84,11 @@ exports.UpdatePrize = async (req , res  , next)=>{
         })
 
     }catch(err){
-        res.status(err)
+        logger.log("error", `prizeController.js |  update prize | ${err}`);
+        res.status(404).json({
+            status:"error", 
+            message: err.message
+        })
     }
  
 }
@@ -95,12 +107,12 @@ exports.DeletePrize = async(req , res, next)=>{
              message:"Prize was deleted"
         })
 
-    }catch(er){
+    }catch(err){
+        logger.log("error", `prizeController.js |  delete prize | ${err}`);
         res.status(404).json({
-            status:'fail',
-            message:"Error To Find Error"
+            status:"error", 
+            message: err.message
         })
-
     }
 
 }

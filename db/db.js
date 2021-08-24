@@ -4,7 +4,7 @@ module.exports = ()=>{
     mongoose.connect(process.env.db,{
          useUnifiedTopology: true ,
          useNewUrlParser: true,
-         useFindAndModify: true,
+         useFindAndModify: false,
     }).then(()=>{
         console.log("Db Connected")
     }).catch((err)=>{

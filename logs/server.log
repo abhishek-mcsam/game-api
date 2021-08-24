@@ -1,0 +1,22 @@
+[2021-08-24T09:28:02.211Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:28:48.082Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:29:04.376Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:29:36.528Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:39:51.355Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:41:46.546Z] - [error] - { auth.js | sso user | ReferenceError: Users is not defined };
+[2021-08-24T09:44:36.902Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:45:12.024Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:45:29.654Z] - [error] - { auth.js | sso user | TypeError: User.finds is not a function };
+[2021-08-24T09:47:18.418Z] - [error] - { auth.js | getalluser | TypeError: User.finds is not a function };
+[2021-08-24T11:34:30.547Z] - [error] - { usercontroller.js | getalluser | TypeError: User.finds is not a function };
+[2021-08-24T11:41:35.891Z] - [error] - { usercontroller.js | updateuser | TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'NativeTopology'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'topology' closes the circle };
+[2021-08-24T11:42:25.921Z] - [error] - { usercontroller.js | updateuser | TypeError: Converting circular structure to JSON
+    --> starting at object with constructor 'NativeTopology'
+    |     property 's' -> object with constructor 'Object'
+    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
+    --- property 'topology' closes the circle };
+[2021-08-24T13:31:39.542Z] - [error] - { auth.js | create user | ValidationError: animaldetail.isweight: must have weight };
