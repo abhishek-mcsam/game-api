@@ -8,7 +8,7 @@ const app = express();
 require("./startup/dotenv")();
 require("./db/db")();
 require("./startup/cors")(app);
-
+// require("./utils/logger")();
 require("./startup/routes")(app);
 require("./utils/unhandleRoutes")(app);
 require("./utils/globalErrorhandler")(app);

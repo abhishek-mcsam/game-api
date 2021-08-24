@@ -1,13 +1,13 @@
-
-
 const User = require("../models/userschema");
 const AppError = require("../utils/appError");
-// const logger = require("../utils/logger")
+const {Createtoken} = require('../utils/token')
+const logger = require("../utils/logger")
 
 
  
 exports.CreateUser = async (req, res , next)=>{
     try{
+        
        const identifyid = req.body.identifyid
                
        if(!identifyid){
@@ -20,20 +20,19 @@ exports.CreateUser = async (req, res , next)=>{
              return next(new AppError("Not Applicable to play the Game" , 400))
         }
        const user = await User.create(req.body)
-        
+
+       const token = await Createtoken(user);
+
         res.status(201).json({
             status:"success",
-            data: user
+            token
+            
         })
         
 
     }catch(err){
- 
-       
+        
           
-        console.log("errrrrrr" , err)
-         res.setHeader("Content-Type", "application/json");
-
          return res.status(400).json({
              status: "error",
             error: err
@@ -87,6 +86,7 @@ exports.DeletUser = (req, res)=>{
 
 exports.GetAlluser = async(req , res)=>{
     try{
+        
         const user = await User.find();
         console.log("usssser is " , user)
         res.status(200).json({
@@ -95,7 +95,9 @@ exports.GetAlluser = async(req , res)=>{
         })
 
     }catch(err){
-        
+        console.log("errrrri s" , err)
+        logger.log("error", `auth.js | sso user | ${err}`);
+
         return res.status(400).json({
             status: "error",
            error: JSON.stringify(err)

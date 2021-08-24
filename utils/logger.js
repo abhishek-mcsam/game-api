@@ -25,34 +25,36 @@ function format_my_log(level, msg, file= null) {
     return log;
 }
 
-module.exports = {
-    log: (level, msg, file = null) => {
-
-        var log = format_my_log(level, msg);
-
-        fs.appendFile(logFile, log, (err) => {
-            if (err) throw err;
-        })
-
-    },
-    infolog: (level, msg, file = null) => {
-
-        var log = format_my_log(level, msg);
-
-        fs.appendFile(loginfoFile, log, (err) => {
-            if (err) throw err;
-        })
-    },
-    // uilog: (level, msg, file = null) => {
-
-    //     var log = format_my_log(level, msg);
-
-
-    //     fs.appendFile(UILOGFILE, log, (err) => {
-    //         if (err) throw err;
-    //     })
-    // }
-}
-module.exports =()=>{
+ 
+ 
+ 
     
-}
+exports.log = (level, msg, file = null) => {
+    console.log("RUnnnnnn")
+
+        let logs = format_my_log(level, msg);
+
+      return  fs.appendFile(logFile, logs, (err) => {
+            if (err) throw err;
+        })
+
+    } 
+ exports.infolog  = (level, msg, file = null) => {
+
+      let   logs= format_my_log(level, msg);
+
+       return fs.appendFile(loginfoFile, logs, (err) => {
+            if (err) throw err;
+        })
+    }
+
+exports.uilog = (level, msg, file = null) => {
+
+        let logs = format_my_log(level, msg);
+
+
+        return fs.appendFile(UILOGFILE, logs, (err) => {
+            if (err) throw err;
+        })
+    }
+    
