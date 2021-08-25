@@ -11,6 +11,9 @@ const prizeSchema = new mongoose.Schema({
         required: [true , 'Provide Valid ShopId']
        }
     
+},
+{
+    timestamps: true
 }
 )
 

@@ -43,4 +43,30 @@ exports.Protect = async(req , res , next)=>{
         })
     }
 
+
+}
+
+exports.Restrict =(...roles)=>{
+    console.log("rooooles is " , roles)
+
+    return (req,res , next)=>{
+        try{
+            
+            if(!roles.includes(req.user.role)){
+                return next(new AppError("Permission Denied " , 401))
+            }
+
+        }catch(err){
+    
+
+        logger.log("error", `authcontroller.js | restrict | ${err}`)
+            res.status(404).json({
+                status:"error",
+                message: err.message
+            })
+        }
+               
+        next()
+    }
+ 
 }

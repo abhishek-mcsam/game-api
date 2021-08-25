@@ -1,6 +1,7 @@
 const User = require("../models/userschema");
 const AppError = require("../utils/appError");
-const {Createtoken} = require('../utils/token')
+const {Createtoken} = require('../utils/token');
+const Shop = require("../models/shopschema")
 const logger = require("../utils/logger")
 
 
@@ -148,38 +149,61 @@ exports.GetUser = async(req , res)=>{
 }
 exports.RewardsController = async (req , res)=>{
     try{
-        const {shop  , iswin , userid } = req.body;
-        if(!shop  || !iswin || !userid){
+        const {shopid   , userid } = req.body;
+        if(!shopid  || !userid){
             return res.status(400).json({
                 status:"fail",
                 message: "Please Provide Valid Details"
             })
         }
-        const user = await User.findByIdAndUpdate(userid , {
-            shop,
-            iswin,
-        },
-        {
-            new: true
+        const currentuser = await User.findById(userid);
+        if(!currentuser.iswin !== true){
+            return  res.status(200).json({
+                status:"success",
+                message:"Yo Loose the Game"
+            })
             
-        });
-        
-        if(user.iswin === true){
-            return res.status(200).json({
-                status:"success",
-                iswinner: true,
-
-            })
-        }else {
-            return res.status(200).json({
-                status:"success",
-                iswinner: false,
-
-            })
-
         }
 
+        console.log("shhhhh" , shopid)
+        // Game Rewards Logic 
+        const shopdetails = await Shop.findById(shopid)
+
+         if(!shopdetails){
+             return next(new AppError("Permission Denied Play Game First", 400))
+         }
+
+        
+    
+        
+
+        // const user = await User.findByIdAndUpdate(userid , {
+        //     shop,
+        //     iswin,
+        // },
+        // {
+        //     new: true
+            
+        // });
+        
+        // if(user.iswin === true){
+        //     return res.status(200).json({
+        //         status:"success",
+        //         iswinner: true,
+
+        //     })
+        // }else {
+        //     return res.status(200).json({
+        //         status:"success",
+        //         iswinner: false,
+
+        //     })
+
+        // }
+        res.send("Okk")
+
     }catch(err){
+        console.log("Errr is " , err)
         logger.log("error", `usercontroller.js | rewards | ${err}`)
         return res.status(400).json({
             status: "error",

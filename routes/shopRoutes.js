@@ -1,10 +1,11 @@
 const express = require('express');
 const shopController = require("../controllers/shopController");
-const ProtectController = require("../controllers/authController")
+const authController = require("../controllers/authController")
 
 const routes = express.Router();
 
-routes.route('/').post(shopController.CreateShop).get(ProtectController.Protect , shopController.GetAllshop)
+routes.route('/')
+.post(authController.Protect  , authController.Restrict('isadmin') , shopController.CreateShop).get(authController.Protect , shopController.GetAllshop)
 
 module.exports = routes;
 

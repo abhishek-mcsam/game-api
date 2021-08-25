@@ -1,8 +1,21 @@
 const express = require("express");
+const helmet = require("helmet")
+const mongoSanitize=require('express-mongo-sanitize');
+const xss = require('xss-clean')
 
 
 // initialize app
 const app = express();
+
+
+app.use(helmet())
+
+// Prevent to No Sql Data Injection
+app.use(mongoSanitize());
+
+// Prevent to malicious  htmldata
+app.use(xss())
+
 
 // require routes
 require("./startup/dotenv")();

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'shop'
     },
-   isWinner:{
+   iswinner:{
        type: Boolean,
        default: false
    },
@@ -51,6 +51,11 @@ const userSchema = new mongoose.Schema({
         //    required:[true , 'must have weight']
        }
 
+   },
+   role:{
+       type:String,
+       enum:['user' , 'isadmin'],
+       default: 'user'
    }
    } , 
 

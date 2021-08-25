@@ -20,3 +20,9 @@
     |     property 'sessionPool' -> object with constructor 'ServerSessionPool'
     --- property 'topology' closes the circle };
 [2021-08-24T13:31:39.542Z] - [error] - { auth.js | create user | ValidationError: animaldetail.isweight: must have weight };
+[2021-08-25T05:32:38.668Z] - [error] - { auth.js | create user | ReferenceError: next is not defined };
+[2021-08-25T05:43:38.077Z] - [error] - { authcontroller.js | restrict | TypeError: Cannot read property 'role' of undefined };
+[2021-08-25T06:47:54.066Z] - [error] - { usercontroller.js | rewards | ReferenceError: shop is not defined };
+[2021-08-25T06:50:32.746Z] - [error] - { usercontroller.js | rewards | ReferenceError: shop is not defined };
+[2021-08-25T06:50:43.477Z] - [error] - { usercontroller.js | rewards | ReferenceError: shop is not defined };
+[2021-08-25T06:51:02.926Z] - [error] - { usercontroller.js | rewards | ReferenceError: shop is not defined };

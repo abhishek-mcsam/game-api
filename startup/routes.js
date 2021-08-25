@@ -9,13 +9,9 @@ const Shop = require("../routes/shopRoutes");
 
 module.exports =(app)=>{
     
-    app.use(express.json()) 
+    app.use(express.json({limit: '10kb'})) 
     app.use("/api/user" , user)
     app.use("/api/prize" ,Prize)
     app.use("/api/shop" , Shop)
    
-
-
-
-
 }
